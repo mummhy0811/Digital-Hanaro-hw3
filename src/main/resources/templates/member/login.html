@@ -23,6 +23,18 @@
       $('#header').load("../header-sub.html");     
       $('#footer').load("../footer-sub.html");
     });
+    function check_empty() {
+      var loginID = document.getElementsByName("loginID")[0].value;
+      var loginPW = document.getElementsByName("loginPW")[0].value;
+
+      if (loginID == "" || loginID == null) {
+        event.preventDefault();
+        window.alert("아이디를 입력하세요");
+      } else if (loginPW == "" || loginPW == null) {
+        event.preventDefault();
+        window.alert("비밀번호를 입력하세요");
+      }
+    }
   </script>
 
 </head>
@@ -66,7 +78,7 @@
             <input type="password" name="loginPW">
           </td>
           <td>
-            <input class="loginImg" type="image" src="../img/member/btn_login.gif">
+            <input class="loginImg" type="image" src="../img/member/btn_login.gif" onclick="check_empty()">
           </td>
         </tr>
       </table>
@@ -75,7 +87,7 @@
           <tr>
             <td>-아이디를 잊으셨나요?</td>
             <td>
-              <input type="image" 
+              <input type="image"
               onclick="location.href='/idFind';",
               src="../img/member/btn_id_find.gif" >
             </td>
@@ -83,7 +95,7 @@
           <tr>
             <td>-비밀번호를 잊으셨나요?</td>
             <td>
-              <input type="image" 
+              <input type="image"
               onclick="location.href='/passwordFind';",
               src="../img/member/btn_pw_find.gif" >
             </td>
