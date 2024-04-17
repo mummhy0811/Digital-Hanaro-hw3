@@ -29,8 +29,8 @@
 </head>
 <body>
   <!-- 헤더 -->
-  <div id="headerTop"></div>
-  <div id="header" class="sticky-top"></div>
+  <div th:replace="/fragments/headerTop.html :: fragment-headerTop"></div>
+  <div th:replace="/fragments/header.html :: fragment-header" class="sticky-top"></div>
 
   <!-- 메인 -->
   <!-- COMMON -->
@@ -68,84 +68,83 @@
         자세한 내용은 개인정보보호정책에서 확인하세요.</h5>
     </div>
     <!-- 입력폼 -->
-    <div class="information1">
-      <div>기본정보</div>
-      <table>
-        <tr>
-          <td>아이디</td>
-          <td>
-            <input type="text" name="userID">
-            <img src="../img/member/btn_iddupl.gif" onclick="">
-            (영문 소문자, 숫자로 4~16자)
-          </td>
-        </tr>
-        <tr>
-          <td>비밀번호</td>
-          <td>
-            <input type="password" name="userPW">
-            영문/숫자/특수문자조합으로 8~16자리. 첫글자는 영문자로 사용
-          </td>
-        </tr>
-        <tr>
-          <td>비밀번호 확인</td>
-          <td><input type="password" name="userPWCheck"></td>
-        </tr>
-        <tr>
-          <td>이름</td>
-          <td><input type="text"></td>
-        </tr>
-        <tr>
-          <td>이메일</td>
-          <td><input type="text">@<input type="text"></td>
-        </tr>
-        <tr>
-          <td>이메일 수신여부</td>
-          <td><input type="radio" name="" id="">수신
-            <input type="radio" name="" id="">수신안함</td>
-        </tr>
-        <tr>
-          <td>비밀번호 확인시 질문</td>
-          <td>
-            <select class="size" name="passwordCheckQuestion">
-              <option value="0">========선택========</option>
-              <option value="1">기억에 남는 추억의 장소는?</option>
-              <option value="2">자신의 인생 좌우명은?</option>
-              <option value="3">자신의 보물 제1호는?</option>
-              <option value="4">가장 기억에 남는 선생님 성함은?</option>
-              <option value="5">내가 좋아하는 캐릭터는?</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>비밀번호 확인시 답변</td>
-          <td><input type="text" name="passwordCheckAnswer" value=""></td>
-        </tr>
-        <tr>
-          <td>성별</td>
-          <td><input type="radio">남자<input type="radio">여자</td>
-        </tr>
-        <tr>
-          <td>생년월일</td>
-          <td>
-            <select name="year" id="year" title="년도" class="birthdaySelect"></select>
-            <select name="month" id="month" title="월" class="birthdaySelect"></select>
-            <select name="day" id="day" title="일" class="birthdaySelect"></select>
-          </td>
-        </tr> 
-      </table>
-    </div>
-    <div class="Information2">부가정보</div>
-    <div class="imageBtn2">
-      <input type="image" src="../img/member/btn_confirm.gif">
-      <input type="image" src="../img/member/btn_cancel.gif">
-    </div>
-
+    <form action="/member/joinAction" method="post">
+      <div class="information1">
+        <div>기본정보</div>
+        
+          <table>
+            <tr>
+              <td>아이디</td>
+              <td>
+                <input type="text" name="userID">
+                <img src="../img/member/btn_iddupl.gif" onclick="">
+                (영문 소문자, 숫자로 4~16자)
+              </td>
+            </tr>
+            <tr>
+              <td>비밀번호</td>
+              <td>
+                <input type="password" name="userPW">
+                영문/숫자/특수문자조합으로 8~16자리. 첫글자는 영문자로 사용
+              </td>
+            </tr>
+            <tr>
+              <td>비밀번호 확인</td>
+              <td><input type="password" name="userPWCheck"></td>
+            </tr>
+            <tr>
+              <td>이름</td>
+              <td><input type="text"></td>
+            </tr>
+            <tr>
+              <td>이메일</td>
+              <td><input type="text"></td>
+            </tr>
+            <tr>
+              <td>이메일 수신여부</td>
+              <td><input type="radio" name="" id="">수신
+                <input type="radio" name="" id="">수신안함</td>
+            </tr>
+            <tr>
+              <td>비밀번호 확인시 질문</td>
+              <td>
+                <select class="size" name="passwordCheckQuestion">
+                  <option value="0">========선택========</option>
+                  <option value="1">기억에 남는 추억의 장소는?</option>
+                  <option value="2">자신의 인생 좌우명은?</option>
+                  <option value="3">자신의 보물 제1호는?</option>
+                  <option value="4">가장 기억에 남는 선생님 성함은?</option>
+                  <option value="5">내가 좋아하는 캐릭터는?</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>비밀번호 확인시 답변</td>
+              <td><input type="text" name="passwordCheckAnswer" value=""></td>
+            </tr>
+            <tr>
+              <td>성별</td>
+              <td><input type="radio">남자<input type="radio">여자</td>
+            </tr>
+            <tr>
+              <td>생년월일</td>
+              <td>
+                <input type="date">
+              </td>
+            </tr> 
+          </table>
+        
+      </div>
+      <div class="Information2">부가정보</div>
+      <div class="imageBtn2">
+        <input type="image" src="../img/member/btn_confirm.gif">
+        <input type="image" src="../img/member/btn_cancel.gif">
+      </div>
+    </form>
   </div>
 
-
-
   <!-- 푸터 -->
-  <div id="footer"></div>
+  <div th:replace="/fragments/footer.html :: fragment-footer"></div>
 
 </body>
 </html>

@@ -36,4 +36,33 @@ public class MainController {
     public String community01_1(@RequestParam Long no){
         return "/community/community01_1";
     }
+    @GetMapping("/company/company01")
+    public String company01(){
+        return "/company/company01";
+    }
+    @GetMapping("/company/company03")
+    public String company03(){
+        return "/company/company03";
+    }
+    @GetMapping("/business/business01")
+    public String business01(){
+        return "/business/business01";
+    }
+    @GetMapping("/product/product01")
+    public String product01(){
+        return "/product/product01";
+    }
+    @GetMapping("/customer/customer01")
+    public String customer01(){
+        return "/customer/customer01";
+    }
+    @GetMapping("/customer/customer02")
+    public String customer02(){
+        return "/customer/customer02";
+    }
+    @GetMapping("/customer/customer03")
+    public String customer03(){
+        return "/customer/customer03";
+    }
+
 }
