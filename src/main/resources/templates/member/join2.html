@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,6 +24,44 @@
       $('#header').load("../header-sub.html");     
       $('#footer').load("../footer-sub.html");
     });
+    function check_empty() {
+      var userID = document.getElementsByName("userID")[0].value;
+      var userPW = document.getElementsByName("userPW")[0].value;
+      var userPWCheck = document.getElementsByName("userPWCheck")[0].value;
+      var userName = document.getElementsByName("userName")[0].value;
+      var userEmail = document.getElementsByName("userEmail")[0].value;
+      var passwordCheckAnswer = document.getElementsByName("passwordCheckAnswer")[0].value;
+      var userBirth = document.getElementsByName("userBirth")[0].value;
+
+      if (userID == "" || userID == null) {
+        event.preventDefault();
+        window.alert("아이디를 입력하세요");
+      } else if (userPW == "" || userPW == null) {
+        event.preventDefault();
+        window.alert("비밀번호를 입력하세요");
+      } else if (userPW.length <= 4) {
+        event.preventDefault();
+        window.alert("비밀번호는 4자리 이상이어야 합니다.");
+      } else if (userPWCheck == "" || userPWCheck == null) {
+        event.preventDefault();
+        window.alert("비밀번호 확인을 입력하세요");
+      } else if (userPW != userPWCheck) {
+        event.preventDefault();
+        window.alert("암호가 일치하지 않습니다. 다시 입력해주세요");
+      } else if (userName == "" || userName == null) {
+        event.preventDefault();
+        window.alert("이름을 입력하세요");
+      } else if (userEmail == "" || userEmail == null) {
+        event.preventDefault();
+        window.alert("이메일을 입력하세요");
+      } else if (passwordCheckAnswer == "" || passwordCheckAnswer == null) {
+        event.preventDefault();
+        window.alert("passwordCheckAnswer을 입력하세요");
+      } else if (userBirth == "" || userBirth == null) {
+        event.preventDefault();
+        window.alert("생년월일을 입력하세요");
+      }
+    }
   </script>
 
 </head>
@@ -94,16 +132,16 @@
             </tr>
             <tr>
               <td>이름</td>
-              <td><input type="text"></td>
+              <td><input type="text" name="userName"></td>
             </tr>
             <tr>
               <td>이메일</td>
-              <td><input type="text"></td>
+              <td><input type="text" name="userEmail"></td>
             </tr>
             <tr>
               <td>이메일 수신여부</td>
-              <td><input type="radio" name="" id="">수신
-                <input type="radio" name="" id="">수신안함</td>
+              <td><input type="radio" name="radiogroup" checked>수신
+                <input type="radio" name="radiogroup" >수신안함</td>
             </tr>
             <tr>
               <td>비밀번호 확인시 질문</td>
@@ -124,12 +162,12 @@
             </tr>
             <tr>
               <td>성별</td>
-              <td><input type="radio">남자<input type="radio">여자</td>
+              <td><input type="radio" name="gender" checked>남자<input type="radio" name="gender">여자</td>
             </tr>
             <tr>
               <td>생년월일</td>
               <td>
-                <input type="date">
+                <input type="date" name="userBirth">
               </td>
             </tr> 
           </table>
@@ -137,7 +175,7 @@
       </div>
       <div class="Information2">부가정보</div>
       <div class="imageBtn2">
-        <input type="image" src="../img/member/btn_confirm.gif">
+        <input type="image" src="../img/member/btn_confirm.gif" onclick="check_empty()">
         <input type="image" src="../img/member/btn_cancel.gif">
       </div>
     </form>
