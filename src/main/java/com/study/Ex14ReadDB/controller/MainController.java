@@ -10,12 +10,10 @@ public class MainController {
     public String main(){
         return "index"; //index.html로 응답
     }
-
     @GetMapping("/member/login")
     public String login(){
         return "/member/login";
     }
-
     @GetMapping("/member/join")
     public String join(){
         return "/member/join2"; //join2.html 응답
@@ -59,6 +57,18 @@ public class MainController {
     @GetMapping("/customer/customer02")
     public String customer02(){
         return "/customer/customer02";
+    }
+    @GetMapping("/customer/customer02_2")
+    public String customer02_2(){
+        return "/customer/customer02_2";
+    }
+    @GetMapping("/customer/customer02_3")
+    public String customer02_3(){
+        return "/customer/customer02_3";
+    }
+    @GetMapping("/customer/customer02_4")
+    public String customer02_4(){
+        return "/customer/customer02_4";
     }
     @GetMapping("/customer/customer03")
     public String customer03(){
