@@ -14,7 +14,7 @@ public class MemberController {
     @PostMapping("/joinAction")
     public String joinMember(@ModelAttribute MemberSaveDto dto){
         int idx = memberService.saveMember(dto);
-        if(memberService.findByIdx(idx)) return "<script>alert('회원가입 되었습니다');  history.back();</script>";
+        if(memberService.findByIdx(idx)) return "<script>alert('회원가입 되었습니다');  location.href='/member/login';</script>";
         return "<script>alert('회원가입 실패했습니다');  history.back();</script>";
     }
     @GetMapping("/check-duple")
