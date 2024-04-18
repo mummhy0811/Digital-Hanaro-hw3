@@ -25,42 +25,45 @@
       $('#footer').load("../footer-sub.html");
     });
     function check_empty() {
-      var userID = document.getElementsByName("userID")[0].value;
-      var userPW = document.getElementsByName("userPW")[0].value;
-      var userPWCheck = document.getElementsByName("userPWCheck")[0].value;
-      var userName = document.getElementsByName("userName")[0].value;
-      var userEmail = document.getElementsByName("userEmail")[0].value;
-      var passwordCheckAnswer = document.getElementsByName("passwordCheckAnswer")[0].value;
-      var userBirth = document.getElementsByName("userBirth")[0].value;
+      var memberID = document.getElementsByName("memberId")[0].value;
+      var memberPW = document.getElementsByName("memberPw")[0].value;
+      var memberPWCheck = document.getElementsByName("memberPWCheck")[0].value;
+      var memberName = document.getElementsByName("memberName")[0].value;
+      var memberEmail = document.getElementsByName("memberEmail")[0].value;
+      var passwordCheckAnswer = document.getElementsByName("memberPWCheck")[0].value;
+      var memberBirth = document.getElementsByName("memberBirthDate")[0].value;
 
-      if (userID == "" || userID == null) {
+      if (memberID == "" || memberID == null) {
         event.preventDefault();
         window.alert("아이디를 입력하세요");
-      } else if (userPW == "" || userPW == null) {
+      } else if (memberPW == "" || memberPW == null) {
         event.preventDefault();
         window.alert("비밀번호를 입력하세요");
-      } else if (userPW.length <= 4) {
+      } else if (memberPW.length <= 4) {
         event.preventDefault();
         window.alert("비밀번호는 4자리 이상이어야 합니다.");
-      } else if (userPWCheck == "" || userPWCheck == null) {
+      } else if (memberPWCheck == "" || memberPWCheck == null) {
         event.preventDefault();
         window.alert("비밀번호 확인을 입력하세요");
-      } else if (userPW != userPWCheck) {
+      } else if (memberPW != memberPWCheck) {
         event.preventDefault();
         window.alert("암호가 일치하지 않습니다. 다시 입력해주세요");
-      } else if (userName == "" || userName == null) {
+      } else if (memberName == "" || memberName == null) {
         event.preventDefault();
         window.alert("이름을 입력하세요");
-      } else if (userEmail == "" || userEmail == null) {
+      } else if (memberEmail == "" || memberEmail == null) {
         event.preventDefault();
         window.alert("이메일을 입력하세요");
       } else if (passwordCheckAnswer == "" || passwordCheckAnswer == null) {
         event.preventDefault();
         window.alert("passwordCheckAnswer을 입력하세요");
-      } else if (userBirth == "" || userBirth == null) {
+      } else if (memberBirth == "" || memberBirth == null) {
         event.preventDefault();
         window.alert("생년월일을 입력하세요");
       }
+    }
+    function check_dupl(){
+      
     }
   </script>
 
@@ -114,39 +117,41 @@
             <tr>
               <td>아이디</td>
               <td>
-                <input type="text" name="userID">
-                <img src="../img/member/btn_iddupl.gif" onclick="">
+                <input type="text" name="memberId">
+                <img src="../img/member/btn_iddupl.gif" onclick="check_dupl()">
                 (영문 소문자, 숫자로 4~16자)
               </td>
             </tr>
             <tr>
               <td>비밀번호</td>
               <td>
-                <input type="password" name="userPW">
+                <input type="password" name="memberPw">
                 영문/숫자/특수문자조합으로 8~16자리. 첫글자는 영문자로 사용
               </td>
             </tr>
             <tr>
               <td>비밀번호 확인</td>
-              <td><input type="password" name="userPWCheck"></td>
+              <td><input type="password" name="memberPWCheck"></td>
             </tr>
             <tr>
               <td>이름</td>
-              <td><input type="text" name="userName"></td>
+              <td><input type="text" name="memberName"></td>
             </tr>
             <tr>
               <td>이메일</td>
-              <td><input type="text" name="userEmail"></td>
+              <td><input type="text" name="memberEmail"></td>
             </tr>
             <tr>
               <td>이메일 수신여부</td>
-              <td><input type="radio" name="radiogroup" checked>수신
-                <input type="radio" name="radiogroup" >수신안함</td>
+              <td>
+                <input type="radio" value="1" name="memberEmailReceive" checked>수신
+                <input type="radio" value="0" name="memberEmailReceive" >수신안함
+              </td>
             </tr>
             <tr>
               <td>비밀번호 확인시 질문</td>
               <td>
-                <select class="size" name="passwordCheckQuestion">
+                <select class="size" name="memberPwQuestion">
                   <option value="0">========선택========</option>
                   <option value="1">기억에 남는 추억의 장소는?</option>
                   <option value="2">자신의 인생 좌우명은?</option>
@@ -158,16 +163,16 @@
             </tr>
             <tr>
               <td>비밀번호 확인시 답변</td>
-              <td><input type="text" name="passwordCheckAnswer" value=""></td>
+              <td><input type="text" name="memberPwAnswer" value=""></td>
             </tr>
             <tr>
               <td>성별</td>
-              <td><input type="radio" name="gender" checked>남자<input type="radio" name="gender">여자</td>
+              <td><input type="radio" name="memberGender" value="male" checked>남자<input type="radio" name="memberGender" value="female" >여자</td>
             </tr>
             <tr>
               <td>생년월일</td>
               <td>
-                <input type="date" name="userBirth">
+                <input type="date" name="memberBirthDate">
               </td>
             </tr> 
           </table>
