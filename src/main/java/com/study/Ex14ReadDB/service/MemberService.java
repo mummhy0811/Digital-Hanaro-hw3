@@ -14,11 +14,7 @@ public class MemberService {
     private final IMemberRepository iMemberRepository;
 
     public int saveMember(MemberSaveDto dto){
-        System.out.println("-------------------------"+dto.getMemberEmailReceive());
-        System.out.println("-------------------------"+dto.getMemberEmail());
-        System.out.println("-------------------------"+dto.getMemberBirthDate());
         Member member = dto.toEntity();
-
         iMemberRepository.save(member);
         return member.getMemberIdx();
     }
