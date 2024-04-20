@@ -1,10 +1,14 @@
 package com.study.Ex14ReadDB.controller;
 
+import com.study.Ex14ReadDB.domain.Notice;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -27,14 +31,6 @@ public class MainController {
     @GetMapping("/passwordFind")
     public String passwordFind(){
         return "/member/passwordFind"; //idFind.html 응답
-    }
-    @GetMapping("/community/community01")
-    public String community01(){
-        return "/community/community01";
-    }
-    @GetMapping("community01_1")
-    public String community01_1(@RequestParam Long no){
-        return "/community/community01_1";
     }
     @GetMapping("/company/company01")
     public String company01(){

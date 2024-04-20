@@ -23,6 +23,67 @@
       $('#header').load("../header-sub.html");     
       $('#footer').load("../footer-sub.html");
     });
+    window.addEventListener("load", (event) => {getNotices();});
+    function getNotices(){
+      fetch("/community/community01/list", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        makeList( json );
+      })
+    }
+    function search(){
+      var select = document.getElementById("selectOption").value;
+      var word = document.getElementById("searchWord").value;
+      fetch("/community/community01/search?select=" + select + "&word=" + encodeURIComponent(word), {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        makeList(json);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }
+    function makeList(list) {
+      let tbody = document.getElementById("notice-tbody");
+      tbody.innerHTML = '';
+      
+      list.forEach((notice, index) => {
+        let tr = document.createElement('tr'); 
+        tr.setAttribute('data-idx', notice.noticeIdx); 
+        tr.addEventListener('click', function() { redirectToDetailPage(this); }); 
+
+        let tdIndex = document.createElement('td'); 
+        tdIndex.textContent = index + 1; 
+        tr.appendChild(tdIndex); 
+
+        let tdTitle = document.createElement('td'); 
+        tdTitle.textContent = notice.noticeTitle; 
+        tr.appendChild(tdTitle); 
+
+        let tdDate = document.createElement('td'); 
+        let date = new Date(notice.noticeDate); 
+        let formattedDate = date.toLocaleString('ko-KR', {year: 'numeric', month: '2-digit', day: '2-digit'}); 
+        tdDate.textContent = formattedDate;
+        tr.appendChild(tdDate); 
+
+        tbody.appendChild(tr); 
+      });
+    }
+    function redirectToDetailPage(element) {
+        var noticeIdx = element.getAttribute('data-idx');
+        var url = '/community/community01_1?no=' + noticeIdx;
+        window.location.href = url;
+    }
   </script>
 
 </head>
@@ -97,36 +158,16 @@
     </div>
     <div class="Notice">
       <table>
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>작성일</th>
-        </tr>
-        <tr onclick="window.location.href='community01_1?no=5'">
-          <td>5</td>
-          <td>새로운 공지사항을 알려드립니다.</td>
-          <td>2019-06-19</td>
-        </tr>
-        <tr onclick="window.location.href='community01_1?no=4'">
-          <td>4</td>
-          <td>새로운 공지사항을 알려드립니다.</td>
-          <td>2019-06-19</td>
-        </tr>
-        <tr onclick="window.location.href='community01_1?no=3'">
-          <td>3</td>
-          <td>새로운 공지사항을 알려드립니다.</td>
-          <td>2019-06-19</td>
-        </tr>
-        <tr onclick="window.location.href='community01_1?no=2'">
-          <td>2</td>
-          <td>새로운 공지사항을 알려드립니다.</td>
-          <td>2019-06-19</td>
-        </tr>
-        <tr onclick="window.location.href='community01_1.html?no=1'">
-          <td>1</td>
-          <td>새로운 공지사항을 알려드립니다.</td>
-          <td>2019-06-19</td>
-        </tr>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일</th>
+          </tr>
+        </thead>
+        <tbody id="notice-tbody">
+          <tr>
+        </tbody>
       </table>
     </div>
   </div>
@@ -136,17 +177,17 @@
     <table>
       <tr>
         <td>
-          <select name="내용" id="">
-            <option value="">제목</option>
-            <option value="">내용</option>
-            <option value="">작성자</option>
+          <select name="내용" id="selectOption">
+            <option value="제목">제목</option>
+            <option value="내용">내용</option>
+            <option value="작성자">작성자</option>
           </select>
         </td>
         <td>
-          <input type="text">
+          <input type="text" id="searchWord">
         </td>
         <td>
-          <input type="image" src="../img/community/search.gif">
+          <input type="image" src="../img/community/search.gif" onclick="search()">
         </td>
       </tr>
     </table>
