@@ -1,8 +1,12 @@
 package com.study.Ex14ReadDB.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
 public class MainController {
@@ -50,13 +54,23 @@ public class MainController {
     public String product01(){
         return "/product/product01";
     }
-    @GetMapping("/customer/customer01")
-    public String customer01(){
-        return "/customer/customer01";
+    @GetMapping("/customer/customer01") //1:1 문의
+    @ResponseBody
+    public String customer01(@SessionAttribute(name = "userId", required = false) String userId){
+        if(userId != null) {
+            return "<script> location.href='/customer/personalQuestion';</script>";
+        } else {
+            return "<script>alert('로그인을 해주세요'); window.location.href='/member/login';</script>";
+        }
     }
-    @GetMapping("/customer/customer02")
-    public String customer02(){
-        return "/customer/customer02";
+    @GetMapping("/customer/customer02") //묻고 답하기
+    @ResponseBody
+    public String customer02(@SessionAttribute(name = "userId", required = false) String userId){
+        if(userId != null) {
+            return "<script> location.href='/customer/QNA';</script>";
+        } else {
+            return "<script>alert('로그인을 해주세요'); window.location.href='/member/login';</script>";
+        }
     }
     @GetMapping("/customer/customer02_2")
     public String customer02_2(){
@@ -70,9 +84,31 @@ public class MainController {
     public String customer02_4(){
         return "/customer/customer02_4";
     }
-    @GetMapping("/customer/customer03")
-    public String customer03(){
-        return "/customer/customer03";
+    @GetMapping("/customer/customer03") //FAQ
+    @ResponseBody
+    public String customer03(@SessionAttribute(name = "userId", required = false) String userId){
+        if(userId != null) {
+            return "<script> location.href='/customer/FAQ';</script>";
+        } else {
+            return "<script>alert('로그인을 해주세요'); window.location.href='/member/login';</script>";
+        }
     }
+
+    @GetMapping("/customer/FAQ")
+    public String customerFAQ(){
+        return "/customer/customer03"; //html반환
+    }
+
+    @GetMapping("/customer/personalQuestion")
+    public String customerPersonalQuestion(){
+        return "/customer/customer01"; //html반환
+    }
+
+
+    @GetMapping("/customer/QNA")
+    public String customerQNA(){
+        return "/customer/customer02"; //html반환
+    }
+
 
 }

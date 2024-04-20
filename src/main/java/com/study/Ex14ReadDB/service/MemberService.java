@@ -2,6 +2,7 @@ package com.study.Ex14ReadDB.service;
 
 import com.study.Ex14ReadDB.domain.IMemberRepository;
 import com.study.Ex14ReadDB.domain.Member;
+import com.study.Ex14ReadDB.dto.LoginDto;
 import com.study.Ex14ReadDB.dto.MemberSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,10 @@ public class MemberService {
     public boolean findByMemberId(String id){
         List<Member> members = iMemberRepository.findAllByMemberId(id);
         return !members.isEmpty();
+    }
+
+    public boolean isRightPw(LoginDto dto){
+        List<Member> member = iMemberRepository.findAllByMemberIdAndMemberPw(dto.getLoginID(), dto.getLoginPW());
+        return !member.isEmpty();
     }
 }
