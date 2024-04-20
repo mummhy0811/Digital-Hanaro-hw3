@@ -34,4 +34,16 @@ public class MemberService {
         List<Member> member = iMemberRepository.findAllByMemberIdAndMemberPw(dto.getLoginID(), dto.getLoginPW());
         return !member.isEmpty();
     }
+
+    public String findByMemberNameAndMemberEmail(String name, String email){
+        List<Member> member = iMemberRepository.findAllByMemberNameAndMemberEmail(name, email);
+        if(member.isEmpty()) return "";
+        return member.get(0).getMemberId();
+    }
+
+    public String findByMemberIdAndMemberNameAndMemberEmail(String id, String name, String email){
+        List<Member> member = iMemberRepository.findAllByMemberIdAndMemberNameAndMemberEmail(id, name, email);
+        if(member.isEmpty()) return "";
+        return member.get(0).getMemberPw();
+    }
 }

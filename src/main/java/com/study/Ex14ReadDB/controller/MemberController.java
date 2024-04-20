@@ -1,12 +1,11 @@
 package com.study.Ex14ReadDB.controller;
 
-import com.study.Ex14ReadDB.dto.BooleanStatusDto;
-import com.study.Ex14ReadDB.dto.LoginDto;
-import com.study.Ex14ReadDB.dto.MemberSaveDto;
+import com.study.Ex14ReadDB.dto.*;
 import com.study.Ex14ReadDB.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -42,4 +41,19 @@ public class MemberController {
         }
         return "<script>alert('아이디가 존재하지 않습니다.'); history.back();</script>";
     }
+
+    @GetMapping("/idFindAction")
+    public String findId(@ModelAttribute FindIdDto dto) {
+        String id = memberService.findByMemberNameAndMemberEmail(dto.getUserName(), dto.getUserEmail());
+        if (id == "") return "일치하는 정보가 없습니다";
+        return "회원님의 아이디는 " + id + "입니다.";
+    }
+
+    @GetMapping("/pwFindAction")
+    public String findPw(@ModelAttribute FindPwDto dto){
+        String pw = memberService.findByMemberIdAndMemberNameAndMemberEmail(dto.getUserID(),dto.getUserName(), dto.getUserEmail());
+        if(pw=="") return "일치하는 정보가 없습니다";
+        return "회원님의 비밀번호는 "+pw+"입니다.";
+    }
+
 }
