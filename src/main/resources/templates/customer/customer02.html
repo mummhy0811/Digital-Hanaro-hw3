@@ -24,6 +24,67 @@
       $('#header').load("../header-sub.html");     
       $('#footer').load("../footer-sub.html");
     });
+
+    window.addEventListener("load", (event) => {getQnAs();});
+    function getQnAs(){
+      fetch("/customer/qna-list", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        makeList( json );
+      })
+    }
+    function search(){
+      let select = document.getElementById('select').value;
+      let word = document.getElementsByName('word')[0].value;
+      fetch("/customer/qna/search?select=" + select + "&word=" + encodeURIComponent(word), {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        makeList( json );
+      })
+    }
+    function makeList(list) {
+      let tbody = document.getElementById("qna-tbody");
+      tbody.innerHTML = '';
+      
+      list.forEach((qna, index) => {
+        let tr = document.createElement('tr'); 
+        tr.setAttribute('data-idx', qna.qnaIdx); 
+        tr.addEventListener('click', function() { openWindow(qna.qnaIdx); }); 
+
+        let tdIndex = document.createElement('td'); 
+        tdIndex.textContent = index + 1; 
+        tr.appendChild(tdIndex); 
+
+        let tdTitle = document.createElement('td'); 
+        tdTitle.textContent = qna.qnaTitle; 
+        tr.appendChild(tdTitle); 
+
+        let tdWriter= document.createElement('td'); 
+        tdWriter.textContent = qna.qnaName; 
+        tr.appendChild(tdWriter); 
+
+        let tdDate = document.createElement('td'); 
+        let date = new Date(qna.qnaDate); 
+        let formattedDate = date.toLocaleString('ko-KR', {year: 'numeric', month: '2-digit', day: '2-digit'}); 
+        tdDate.textContent = formattedDate;
+        tr.appendChild(tdDate); 
+
+        tbody.appendChild(tr); 
+      });
+    }
+    function openWindow( no ){
+      window.open('/customer/customer02_3?no='+no, '비밀번호확인', 'width=430,height=300,location=no,status=no,scrollbars=no')
+    }
   </script>
 
 </head>
@@ -98,25 +159,16 @@
     </div>
     <div class="qna">
       <table>
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>작성일</th>
-        </tr>
-        <tr onclick="openWindow(5)">
-          <td>5</td>
-          <td><img src="../img/customer/icon_sct.gif">문의사항에 대해 자세한 답변 부탁합니다.</td>
-          <td>hong</td>
-          <td>2019-06-19</td>
-        </tr>
-        <tr onclick="openWindow(4)">
-          <td>4</td>
-          <td><img src="../img/customer/icon_sct.gif">문의사항에 대해 자세한 답변 부탁합니다.</td>
-          <td>hong</td>
-          <td>2019-06-19</td>
-        </tr>
-
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+          </tr>
+        </thead>
+        <tbody id="qna-tbody">
+        </tbody>
       </table>
     </div>
   </div>
@@ -130,17 +182,17 @@
     <table>
       <tr>
         <td>
-          <select name="내용" id="">
-            <option value="">제목</option>
-            <option value="">내용</option>
-            <option value="">작성자</option>
+          <select  name="select" id="select">
+            <option value="제목">제목</option>
+            <option value="내용">내용</option>
+            <option value="작성자">작성자</option>
           </select>
         </td>
         <td>
-          <input type="text">
+          <input type="text" name="word">
         </td>
         <td>
-          <input type="image" src="../img/customer/search.gif">
+          <input type="image" src="../img/customer/search.gif" onclick="search()">
         </td>
       </tr>
     </table>
@@ -148,11 +200,5 @@
 
   <!-- 푸터 -->
   <div id="footer"></div>
-
-  <script>
-    function openWindow( no ){
-      window.open('/customer/customer02_3?no='+no, '비밀번호확인', 'width=430,height=300,location=no,status=no,scrollbars=no')
-    }
-  </script>
 </body>
 </html>
