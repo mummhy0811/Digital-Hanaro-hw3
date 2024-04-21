@@ -22,9 +22,11 @@ public class CommunityService {
 
     public  List<Notice> searchNotices(String select, String word){
         if(select.equals("제목")){
-            return iNoticeRepository.findAllByNoticeTitle(word);
-        }else{//내용
-            return iNoticeRepository.findAllByNoticeMemberId(word);
+            return iNoticeRepository.findByNoticeTitleContainingIgnoreCase(word);
+        }else if(select.equals("내용")){
+            return iNoticeRepository.findByNoticeContentContainingIgnoreCase(word);
+        }else{
+            return iNoticeRepository.findByNoticeMemberIdContainingIgnoreCase(word);
         }
     }
 }

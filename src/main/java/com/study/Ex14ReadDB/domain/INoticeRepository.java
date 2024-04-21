@@ -10,12 +10,6 @@ import java.util.List;
 
 @Repository
 public interface INoticeRepository extends JpaRepository<Notice, Integer> {
-    @Query("select n from Notice n where n.noticeTitle like %:title%")
-    List<Notice> findAllByNoticeTitle(@Param("title") String title);
-
-    @Query("select n from Notice n where n.noticeMemberId like %:memberId%")
-    List<Notice> findAllByNoticeMemberId(@Param("memberId") String memberId);
-
     List<Notice> findTop5ByOrderByNoticeMemberIdAsc();
     List<Notice> findTop5ByOrderByNoticeMemberIdDesc();
     List<Notice> findTop5ByOrderByNoticeDateAsc();
