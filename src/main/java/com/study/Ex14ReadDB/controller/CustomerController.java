@@ -17,7 +17,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     //---------------------1:1 문의
-    @GetMapping("/customer/customer01")
+    @GetMapping("/customer01")
     @ResponseBody
     public String customer01(@SessionAttribute(name = "userId", required = false) String userId){
         if(userId != null) {
@@ -26,7 +26,7 @@ public class CustomerController {
             return "<script>alert('로그인을 해주세요'); window.location.href='/member/login';</script>";
         }
     }
-    @GetMapping("/customer/personalQuestion")
+    @GetMapping("/personalQuestion")
     public String customerPersonalQuestion(){
         return "/customer/customer01"; //html반환
     }
@@ -58,7 +58,7 @@ public class CustomerController {
         return customerService.checkPw(no, pw);
     }
 
-    @GetMapping("/customer/customer02") //묻고 답하기
+    @GetMapping("/customer02") //묻고 답하기
     @ResponseBody
     public String customer02(@SessionAttribute(name = "userId", required = false) String userId){
         if(userId != null) {
@@ -71,11 +71,11 @@ public class CustomerController {
     public String customerQNA(){
         return "/customer/customer02"; //html반환
     }
-    @GetMapping("/customer/customer02_2")
+    @GetMapping("/customer02_2")
     public String customer02_2(){
         return "/customer/customer02_2";
     }
-    @GetMapping("/customer/customer02_3")
+    @GetMapping("/customer02_3")
     public String customer02_3(){
         return "/customer/customer02_3";
     }
