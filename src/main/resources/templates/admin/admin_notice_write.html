@@ -57,29 +57,24 @@
   		<div class="adminDiv">
   			<h3>공지사항 관리</h3>
   		</div>
-  		<div class="noticeWriteTitle adminDiv2">
-  			<!-- <select name="type_select" id="type_select">
-          <option value="normal" selected>일반공지</option>
-          <option value="important">중요공지</option>
-        </select> -->
-        <label style="width: 100px;">타이틀</label>
-        <input type="text" name="noticeTitle" id="noticeTitle" value="">
-  		</div>
-  		<div class="adminDiv2">
-  		  <textarea rows="5" cols="50" id="editor4" name="editor4">1234</textarea>
-	
-  		</div>
-  		<div class="noticeWriteBtns adminDiv2">
-  		  <input type="submit" value="등록">
-  		  <input type="button" onclick="history.back()" value="취소">
-  		</div>
-  		
+      <form action="/admin/notice" method="post">
+        <div class="noticeWriteTitle adminDiv2">
+          <label style="width: 100px;">타이틀</label>
+          <input type="text" name="noticeTitle" id="noticeTitle" value="">
+        </div>
+        <div class="adminDiv2">
+          <textarea rows="5" cols="50" id="noticeContent" name="noticeContent"></textarea>
+        </div>
+        <div class="noticeWriteBtns adminDiv2">
+          <input type="submit" value="등록">
+          <input type="button" onclick="history.back()" value="취소">
+        </div>
+      </form>
   	</div>
   </div>
 
 
   <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
-  <!-- <script>CKEDITOR.replace('editor4');</script> -->
   <script>
   	var ckeditor_config = {
 	   resize_enaleb : false,
@@ -89,7 +84,6 @@
 	 };
 	 CKEDITOR.replace("editor4", ckeditor_config);
   </script>
-
 
 
     <!-- 푸터 -->

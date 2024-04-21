@@ -3,6 +3,7 @@ package com.study.Ex14ReadDB.service;
 import com.study.Ex14ReadDB.domain.*;
 import com.study.Ex14ReadDB.dto.EditNoticeDto;
 import com.study.Ex14ReadDB.dto.LoginDto;
+import com.study.Ex14ReadDB.dto.WriteNoticeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -45,8 +46,8 @@ public class AdminService {
     public List<Notice> searchNotices(String option, String keyword, String order, int n) {
         List<Notice> notices = switch (option) {
             case "id" -> iNoticeRepository.findByNoticeMemberIdContainingIgnoreCase(keyword);
-            case "title" -> iNoticeRepository.findByNoticeContentContainingIgnoreCase(keyword);
-            case "content" -> iNoticeRepository.findByNoticeTitleContainingIgnoreCase(keyword);
+            case "title" -> iNoticeRepository.findByNoticeTitleContainingIgnoreCase(keyword);
+            case "content" -> iNoticeRepository.findByNoticeContentContainingIgnoreCase(keyword);
             default -> iNoticeRepository.searchAllNotice(keyword);
         };
 
@@ -89,6 +90,18 @@ public class AdminService {
         } else {
             throw new Exception("Notice with ID " + noticeIdx + " not found");
         }
+    }
+
+    public int writeNotice(String userId, WriteNoticeDto dto){
+        System.out.println(dto.getNoticeContent());
+        System.out.println(dto.getNoticeTitle());
+        Notice notice = Notice.builder().noticeMemberId(userId).noticeTitle(dto.getNoticeTitle()).noticeContent(dto.getNoticeContent()).build();
+        iNoticeRepository.save(notice);
+        return notice.getNoticeIdx();
+    }
+
+    public boolean checkExistNotice(int id){
+        return iNoticeRepository.findById(id).isPresent();
     }
 
 }

@@ -30,15 +30,10 @@ public class Notice {
     private LocalDateTime noticeDate = LocalDateTime.now();
 
     @Builder
-    public Notice(int noticeIdx, String noticeContent) {
-        this.noticeIdx=noticeIdx;
-        this.noticeContent = noticeContent;
-    }
-    @Builder
-    public Notice(String noticeTitle, String noticeContent, String noticeMemberId, LocalDateTime noticeDate) {
+    public Notice(String noticeTitle, String noticeContent, String noticeMemberId) {
         this.noticeTitle = noticeTitle;
         this.noticeContent = noticeContent;
         this.noticeMemberId = noticeMemberId;
-        this.noticeDate = noticeDate;
+        this.noticeDate = LocalDateTime.now();
     }
 }

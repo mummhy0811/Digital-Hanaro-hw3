@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EditNoticeDto {
-    private int noticeIdx;
+public class WriteNoticeDto {
+    private String noticeTitle;
     private String noticeContent;
 }

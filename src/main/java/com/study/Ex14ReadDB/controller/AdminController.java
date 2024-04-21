@@ -5,6 +5,7 @@ import com.study.Ex14ReadDB.domain.Notice;
 import com.study.Ex14ReadDB.dto.EditNoticeDto;
 import com.study.Ex14ReadDB.dto.LoginDto;
 import com.study.Ex14ReadDB.dto.ResDto;
+import com.study.Ex14ReadDB.dto.WriteNoticeDto;
 import com.study.Ex14ReadDB.service.AdminService;
 import com.study.Ex14ReadDB.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -119,5 +120,13 @@ public class AdminController {
                 .status("fail")
                 .message("수정 실패")
                 .build();
+    }
+
+    @PostMapping("/notice")
+    @ResponseBody
+    public String writeNotice(@SessionAttribute(name = "userId", required = false) String userId,@ModelAttribute WriteNoticeDto dto){
+        int idx = adminService.writeNotice(userId, dto);
+        if(adminService.checkExistNotice(idx)) return "<script>alert('공지 작성 완료'); location.href='/admin/admin_notice';</script>";
+        return "<script>alert('공지 작성 실패'); location.href='/admin/notice-list';</script>";
     }
 }
