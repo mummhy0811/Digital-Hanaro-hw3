@@ -69,14 +69,14 @@ public class AdminController {
         return memberService.getAllMembers(order, n);
     }
 
+
     @GetMapping("/member-list/search")
     @ResponseBody
-    public List<Member> searchMembers(@RequestParam String option, @RequestParam String keyword) {
-        return switch (option) {
-            case "id" -> memberService.searchById(keyword);
-            case "name" -> memberService.searchByName(keyword);
-            case "email" -> memberService.searchByEmail(keyword);
-            default -> memberService.searchAll(keyword);
-        };
+    public List<Member> searchMembers(
+            @RequestParam String option,
+            @RequestParam String keyword,
+            @RequestParam String order,
+            @RequestParam int n) {
+        return memberService.searchMembers(option, keyword, order, n);
     }
 }

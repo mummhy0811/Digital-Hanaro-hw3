@@ -7,6 +7,7 @@ import com.study.Ex14ReadDB.dto.MemberSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -63,23 +64,35 @@ public class MemberService {
         }
     }
 
-    // 모든 회원을 반환하는 메서드 (전체 검색)
-    public List<Member> searchAll(String keyword) {
-        return iMemberRepository.searchAllMembers(keyword);
-    }
+    public List<Member> searchMembers(String option, String keyword, String order, int n) {
+        List<Member> members = switch (option) {
+            case "id" -> iMemberRepository.findByMemberIdContainingIgnoreCase(keyword);
+            case "name" -> iMemberRepository.findByMemberNameContainingIgnoreCase(keyword);
+            case "email" -> iMemberRepository.findByMemberEmailContainingIgnoreCase(keyword);
+            default -> iMemberRepository.searchAllMembers(keyword);
+        };
 
-    // 아이디로 회원을 검색하는 메서드
-    public List<Member> searchById(String keyword) {
-        return iMemberRepository.findByMemberIdContainingIgnoreCase(keyword);
-    }
+        // 정렬 적용
+        switch (order) {
+            case "id_desc":
+                members.sort(Comparator.comparing(Member::getMemberId).reversed());
+                break;
+            case "join_date_asc":
+                members.sort(Comparator.comparing(Member::getMemberJoinDate));
+                break;
+            case "join_date_desc":
+                members.sort(Comparator.comparing(Member::getMemberJoinDate).reversed());
+                break;
+            default:
+                members.sort(Comparator.comparing(Member::getMemberId));
+                break;
+        }
 
-    // 이름으로 회원을 검색하는 메서드
-    public List<Member> searchByName(String keyword) {
-        return iMemberRepository.findByMemberNameContainingIgnoreCase(keyword);
-    }
-
-    // 이메일로 회원을 검색하는 메서드
-    public List<Member> searchByEmail(String keyword) {
-        return iMemberRepository.findByMemberEmailContainingIgnoreCase(keyword);
+        // 페이지네이션 적용
+        if (n == 5) {
+            return members.subList(0, Math.min(5, members.size()));
+        } else {
+            return members.subList(0, Math.min(10, members.size()));
+        }
     }
 }
