@@ -1,16 +1,14 @@
 package com.study.Ex14ReadDB.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @Table(name="company_notice")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Notice {
@@ -31,6 +29,11 @@ public class Notice {
     @Column(name = "notice_date", nullable = false, length = 100)
     private LocalDateTime noticeDate = LocalDateTime.now();
 
+    @Builder
+    public Notice(int noticeIdx, String noticeContent) {
+        this.noticeIdx=noticeIdx;
+        this.noticeContent = noticeContent;
+    }
     @Builder
     public Notice(String noticeTitle, String noticeContent, String noticeMemberId, LocalDateTime noticeDate) {
         this.noticeTitle = noticeTitle;

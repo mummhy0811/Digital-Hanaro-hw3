@@ -1,12 +1,14 @@
 package com.study.Ex14ReadDB.service;
 
 import com.study.Ex14ReadDB.domain.*;
+import com.study.Ex14ReadDB.dto.EditNoticeDto;
 import com.study.Ex14ReadDB.dto.LoginDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -69,6 +71,23 @@ public class AdminService {
             return notices.subList(0, Math.min(5, notices.size()));
         } else {
             return notices.subList(0, Math.min(10, notices.size()));
+        }
+    }
+    public Notice getNotice(int no){
+        return iNoticeRepository.findById(no).get();
+    }
+
+    public Notice editNotice(EditNoticeDto dto) throws Exception {
+        int noticeIdx = dto.getNoticeIdx();
+        String noticeContent = dto.getNoticeContent();
+
+        Optional<Notice> optionalNotice = iNoticeRepository.findById(noticeIdx);
+        if (optionalNotice.isPresent()) {
+            Notice notice = optionalNotice.get();
+            notice.setNoticeContent(noticeContent);
+            return iNoticeRepository.save(notice);
+        } else {
+            throw new Exception("Notice with ID " + noticeIdx + " not found");
         }
     }
 

@@ -2,7 +2,9 @@ package com.study.Ex14ReadDB.controller;
 
 import com.study.Ex14ReadDB.domain.Member;
 import com.study.Ex14ReadDB.domain.Notice;
+import com.study.Ex14ReadDB.dto.EditNoticeDto;
 import com.study.Ex14ReadDB.dto.LoginDto;
+import com.study.Ex14ReadDB.dto.ResDto;
 import com.study.Ex14ReadDB.service.AdminService;
 import com.study.Ex14ReadDB.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -95,5 +97,27 @@ public class AdminController {
             @RequestParam String order,
             @RequestParam int n) {
         return adminService.searchNotices(option, keyword, order, n);
+    }
+
+    @GetMapping("/notice")
+    @ResponseBody
+    public Notice getNotice(@RequestParam int no) {
+        return adminService.getNotice(no);
+    }
+
+    @PutMapping("/notice")
+    @ResponseBody
+    public ResDto editNotice(@RequestBody EditNoticeDto dto) throws Exception {
+        adminService.editNotice(dto);
+        System.out.println(dto.getNoticeIdx());
+        if(adminService.getNotice(dto.getNoticeIdx()).getNoticeContent().equals(dto.getNoticeContent()))
+            return ResDto.builder()
+                .status("ok")
+                .message("수정되었습니다.")
+                .build();
+        else return ResDto.builder()
+                .status("fail")
+                .message("수정 실패")
+                .build();
     }
 }

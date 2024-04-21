@@ -105,5 +105,5 @@
 2. ckeditor4를 제거하고 input태그 type=”text”로 구현 또는 textarea태그 내용으로 form태그를 사용하여 구현
 
 ### 공지사항 수정
-1. 내용만 수정하여 수정버튼을 클릭시 DB 내용 수정
-2. ckeditor4를 제거하고 input태그 type=”text”로 구현 또는 textarea태그 내용으로 form태그를 사용하여 구현
+1. 내용만 수정하여 수정버튼을 클릭시 DB 내용 수정 ✅
+2. ckeditor4를 제거하고 input태그 type=”text”로 구현 또는 textarea태그 내용으로 form태그를 사용하여 구현 ✅
