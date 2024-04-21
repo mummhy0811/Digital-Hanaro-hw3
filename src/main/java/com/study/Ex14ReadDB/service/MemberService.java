@@ -46,4 +46,40 @@ public class MemberService {
         if(member.isEmpty()) return "";
         return member.get(0).getMemberPw();
     }
+
+    public List<Member> getAllMembers(String s, int n){
+        if(s.equals("id_asc")){
+            if(n==5) return iMemberRepository.findTop5ByOrderByMemberIdAsc();
+            return iMemberRepository.findTop10ByOrderByMemberIdAsc();
+        }else if(s.equals("id_desc")){
+            if(n==5) return iMemberRepository.findTop5ByOrderByMemberIdDesc();
+            return iMemberRepository.findTop10ByOrderByMemberIdDesc();
+        }else if(s.equals("join_date_asc")){
+            if(n==5) return iMemberRepository.findTop5ByOrderByMemberJoinDateAsc();
+            return iMemberRepository.findTop10ByOrderByMemberJoinDateAsc();
+        }else{
+            if(n==5) return iMemberRepository.findTop5ByOrderByMemberJoinDateDesc();
+            return iMemberRepository.findTop10ByOrderByMemberJoinDateDesc();
+        }
+    }
+
+    // 모든 회원을 반환하는 메서드 (전체 검색)
+    public List<Member> searchAll(String keyword) {
+        return iMemberRepository.searchAllMembers(keyword);
+    }
+
+    // 아이디로 회원을 검색하는 메서드
+    public List<Member> searchById(String keyword) {
+        return iMemberRepository.findByMemberIdContainingIgnoreCase(keyword);
+    }
+
+    // 이름으로 회원을 검색하는 메서드
+    public List<Member> searchByName(String keyword) {
+        return iMemberRepository.findByMemberNameContainingIgnoreCase(keyword);
+    }
+
+    // 이메일로 회원을 검색하는 메서드
+    public List<Member> searchByEmail(String keyword) {
+        return iMemberRepository.findByMemberEmailContainingIgnoreCase(keyword);
+    }
 }

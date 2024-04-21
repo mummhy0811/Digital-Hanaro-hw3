@@ -1,18 +1,24 @@
 package com.study.Ex14ReadDB.controller;
 
+import com.study.Ex14ReadDB.domain.Member;
 import com.study.Ex14ReadDB.dto.LoginDto;
 import com.study.Ex14ReadDB.service.AdminService;
+import com.study.Ex14ReadDB.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
+    private final MemberService memberService;
 
     @GetMapping("")
     public String adminLogin(){
@@ -55,5 +61,22 @@ public class AdminController {
             return "<script>alert('비밀번호가 다릅니다.');  history.back();</script>";
         }
         return "<script>alert('아이디가 존재하지 않습니다.'); history.back();</script>";
+    }
+
+    @GetMapping("/member-list")
+    @ResponseBody
+    public List<Member> getMemberList(@RequestParam String order, @RequestParam int n){
+        return memberService.getAllMembers(order, n);
+    }
+
+    @GetMapping("/member-list/search")
+    @ResponseBody
+    public List<Member> searchMembers(@RequestParam String option, @RequestParam String keyword) {
+        return switch (option) {
+            case "id" -> memberService.searchById(keyword);
+            case "name" -> memberService.searchByName(keyword);
+            case "email" -> memberService.searchByEmail(keyword);
+            default -> memberService.searchAll(keyword);
+        };
     }
 }
