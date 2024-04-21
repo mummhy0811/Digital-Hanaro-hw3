@@ -57,7 +57,7 @@ public class CustomerController {
     public boolean checkPw(@RequestParam int no, @RequestParam String pw){
         return customerService.checkPw(no, pw);
     }
-    
+
     @GetMapping("/customer/customer02") //묻고 답하기
     @ResponseBody
     public String customer02(@SessionAttribute(name = "userId", required = false) String userId){

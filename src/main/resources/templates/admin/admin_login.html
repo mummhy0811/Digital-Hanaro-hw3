@@ -27,6 +27,20 @@
       integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
       crossorigin="anonymous"
     ></script>
+    <script>
+      function check_empty() {
+      var loginID = document.getElementsByName("loginID")[0].value;
+      var loginPW = document.getElementsByName("loginPW")[0].value;
+
+      if (loginID == "" || loginID == null) {
+        event.preventDefault();
+        window.alert("아이디를 입력하세요");
+      } else if (loginPW == "" || loginPW == null) {
+        event.preventDefault();
+        window.alert("비밀번호를 입력하세요");
+      }
+    }
+    </script>
   </head>
 
   <body>
@@ -60,7 +74,7 @@
         <div><p>The design and maintenance are excellent.</p></div>
       </div>
       <div class="loginMain">
-        <form action="adminLoginAction" method="post">
+        <form action="/admin/login" method="post">
           <table class="main1">
             <tr>
               <td>
@@ -68,15 +82,15 @@
                 비밀번호
               </td>
               <td>
-                <input type="text" name="member_id" /> <br />
-                <input type="text" name="member_pw" />
+                <input type="text" name="loginID" /> <br />
+                <input type="text" name="loginPW" />
               </td>
               <td>
                 <input
                   type="image"
                   class="loginImg"
                   name="submit"
-                  value="submit"
+                  onclick="check_empty()"
                   src="../img/member/btn_login.gif"
                 />
               </td>
