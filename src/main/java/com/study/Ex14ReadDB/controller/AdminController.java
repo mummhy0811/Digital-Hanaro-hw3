@@ -1,6 +1,7 @@
 package com.study.Ex14ReadDB.controller;
 
 import com.study.Ex14ReadDB.domain.Member;
+import com.study.Ex14ReadDB.domain.Notice;
 import com.study.Ex14ReadDB.dto.LoginDto;
 import com.study.Ex14ReadDB.service.AdminService;
 import com.study.Ex14ReadDB.service.MemberService;
@@ -78,5 +79,21 @@ public class AdminController {
             @RequestParam String order,
             @RequestParam int n) {
         return memberService.searchMembers(option, keyword, order, n);
+    }
+
+    @GetMapping("/notice-list")
+    @ResponseBody
+    public List<Notice> getNoticeList(@RequestParam String order, @RequestParam int n){
+        return adminService.getAllNotices(order, n);
+    }
+
+    @GetMapping("/notice-list/search")
+    @ResponseBody
+    public List<Notice> searchNotices(
+            @RequestParam String option,
+            @RequestParam String keyword,
+            @RequestParam String order,
+            @RequestParam int n) {
+        return adminService.searchNotices(option, keyword, order, n);
     }
 }

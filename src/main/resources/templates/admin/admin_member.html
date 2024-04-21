@@ -23,7 +23,7 @@
 			var searchOption = document.getElementById("search_select").value;
 			var searchKeyword = document.getElementById("search_keyword").value;
 
-			fetch("/admin/member-list?order=" + order + "&n=" + n + "&searchOption=" + searchOption + "&searchKeyword=" + searchKeyword, {
+			fetch("/admin/member-list?order=" + order + "&n=" + n + "&searchOption=", {
 				method: "GET",
 				headers: { "Content-Type": "application/json" }
 			})
@@ -85,7 +85,7 @@
 				let bDate = document.createElement('td');
 				let date = new Date(member.memberBirthDate);
 				let memberBDate = date.toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
-				bDate.textContent = memberBDate; // 수정된 부분
+				bDate.textContent = memberBDate; 
 				tr.appendChild(bDate);
 
 				let jDate = document.createElement('td');
