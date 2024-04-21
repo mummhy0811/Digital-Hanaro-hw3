@@ -14,26 +14,47 @@
   <!-- Bootstarp JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+  <script>
+    function checkPw(){
 
+      var queryString = window.location.search;
+      var urlParams = new URLSearchParams(queryString);
+      var no = urlParams.get('no');
+      var pw = document.getElementById('pwInput').value;
+      fetch("/customer/qna/checkPw?no=" + no + "&pw=" +encodeURIComponent(pw), {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        if (json === true) {
+          window.opener.location.href = '/customer/customer02_4?no=' + no;
+          window.close();
+        } else {
+          alert('비밀번호가 일치하지 않습니다.');
+        }
+      })
+    }
+  </script>
 </head>
 <body>
   <div class="main">
-    <form action="">
-      <table>
-        <tr>
-          <td colspan="2">비밀번호입력</td>
-        </tr>
-        <tr>
-          <td colspan="2">글 작성시 입력한 비밀번호를 입력하세요.</td>
-        </tr>
-        <tr>
-          <td style="width: 20%;"><img src="../img/customer/txt_pass.gif"></td>          
-          <td style="width: 80%;"><input type="password"></td>
-        </tr>
-        
-      </table>
-      <div><input type="image" src="../img/customer/btn_confirm.gif"></div>
-    </form>
+    <table>
+      <tr>
+        <td colspan="2">비밀번호입력</td>
+      </tr>
+      <tr>
+        <td colspan="2">글 작성시 입력한 비밀번호를 입력하세요.</td>
+      </tr>
+      <tr>
+        <td style="width: 20%;"><img src="../img/customer/txt_pass.gif"></td>          
+        <td style="width: 80%;"><input type="password" id="pwInput"></td>
+      </tr>
+      
+    </table>
+    <div><input type="image" src="../img/customer/btn_confirm.gif" onClick="checkPw()"></div>
     <div><input class="closeBtn" type="image" onclick="window.close()" src="../img/member/btn_close.gif"></a></div>
   </div>
   

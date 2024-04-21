@@ -1,14 +1,11 @@
 package com.study.Ex14ReadDB.controller;
 
-import com.study.Ex14ReadDB.domain.Notice;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import java.util.List;
 
 @Controller
 public class MainController {
@@ -48,36 +45,8 @@ public class MainController {
     public String product01(){
         return "/product/product01";
     }
-    @GetMapping("/customer/customer01") //1:1 문의
-    @ResponseBody
-    public String customer01(@SessionAttribute(name = "userId", required = false) String userId){
-        if(userId != null) {
-            return "<script> location.href='/customer/personalQuestion';</script>";
-        } else {
-            return "<script>alert('로그인을 해주세요'); window.location.href='/member/login';</script>";
-        }
-    }
-    @GetMapping("/customer/customer02") //묻고 답하기
-    @ResponseBody
-    public String customer02(@SessionAttribute(name = "userId", required = false) String userId){
-        if(userId != null) {
-            return "<script> location.href='/customer/QNA';</script>";
-        } else {
-            return "<script>alert('로그인을 해주세요'); window.location.href='/member/login';</script>";
-        }
-    }
-    @GetMapping("/customer/customer02_2")
-    public String customer02_2(){
-        return "/customer/customer02_2";
-    }
-    @GetMapping("/customer/customer02_3")
-    public String customer02_3(){
-        return "/customer/customer02_3";
-    }
-    @GetMapping("/customer/customer02_4")
-    public String customer02_4(){
-        return "/customer/customer02_4";
-    }
+
+
     @GetMapping("/customer/customer03") //FAQ
     @ResponseBody
     public String customer03(@SessionAttribute(name = "userId", required = false) String userId){
@@ -91,17 +60,6 @@ public class MainController {
     @GetMapping("/customer/FAQ")
     public String customerFAQ(){
         return "/customer/customer03"; //html반환
-    }
-
-    @GetMapping("/customer/personalQuestion")
-    public String customerPersonalQuestion(){
-        return "/customer/customer01"; //html반환
-    }
-
-
-    @GetMapping("/customer/QNA")
-    public String customerQNA(){
-        return "/customer/customer02"; //html반환
     }
 
     @GetMapping("/member/findReturn")

@@ -8,7 +8,9 @@ import com.study.Ex14ReadDB.dto.One2oneSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,5 +36,14 @@ public class CustomerService {
         if(select.equals("제목")) return iQnARepository.findAllByQnATitle(word);
         else if(select.equals("내용")) return iQnARepository.findAllByQnAContent(word);
         return iQnARepository.findAllByQnAName(word);
+    }
+
+    public boolean checkPw(int no, String pw){
+        Optional<QnA> optionalQnA = iQnARepository.findById(no);
+        return optionalQnA.map(qnA -> qnA.getQnaPw().equals(pw)).orElse(false);
+    }
+
+    public QnA findQnA(int no){
+        return iQnARepository.findById(no).get();
     }
 }

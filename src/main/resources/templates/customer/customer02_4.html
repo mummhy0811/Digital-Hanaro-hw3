@@ -101,18 +101,18 @@
     <table>
       <tr>
         <th>제목</th>
-        <td>제목입니다.</td>
+        <td th:text="${qna.qnaTitle}">제목입니다.</td>
       </tr>
       <tr>
         <th>작성자</th>
-        <td>홍길동</td>
+        <td th:text="${qna.qnaName}">홍길동</td>
       </tr>
       <tr>
         <th>작성일</th>
-        <td>2024-04-15</td>
+        <td th:text="${ #temporals.format(qna.qnaDate, 'yyyy-MM-dd') }">2024-04-15</td>
       </tr>
       <tr>
-        <td colspan="2">묻고답하기 내용입니다.</td>
+        <td colspan="2" th:text="${qna.qnaContent}">묻고답하기 내용입니다.</td>
       </tr>
     </table>
     <div>
