@@ -50,15 +50,19 @@ public class MemberService {
 
     public List<Member> getAllMembers(String s, int n){
         if(s.equals("id_asc")){
+            if(n==0) return iMemberRepository.findAllByOrderByMemberIdAsc();
             if(n==5) return iMemberRepository.findTop5ByOrderByMemberIdAsc();
             return iMemberRepository.findTop10ByOrderByMemberIdAsc();
         }else if(s.equals("id_desc")){
+            if(n==0) return iMemberRepository.findAllByOrderByMemberIdDesc();
             if(n==5) return iMemberRepository.findTop5ByOrderByMemberIdDesc();
             return iMemberRepository.findTop10ByOrderByMemberIdDesc();
         }else if(s.equals("join_date_asc")){
+            if(n==0) return iMemberRepository.findAllByOrderByMemberJoinDateAsc();
             if(n==5) return iMemberRepository.findTop5ByOrderByMemberJoinDateAsc();
             return iMemberRepository.findTop10ByOrderByMemberJoinDateAsc();
         }else{
+            if(n==0) return iMemberRepository.findAllByOrderByMemberJoinDateDesc();
             if(n==5) return iMemberRepository.findTop5ByOrderByMemberJoinDateDesc();
             return iMemberRepository.findTop10ByOrderByMemberJoinDateDesc();
         }
@@ -89,7 +93,10 @@ public class MemberService {
         }
 
         // 페이지네이션 적용
-        if (n == 5) {
+        if( n == 0){
+            return members;
+        }
+        else if (n == 5) {
             return members.subList(0, Math.min(5, members.size()));
         } else {
             return members.subList(0, Math.min(10, members.size()));

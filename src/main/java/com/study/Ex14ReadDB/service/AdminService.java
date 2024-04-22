@@ -29,15 +29,19 @@ public class AdminService {
 
     public List<Notice> getAllNotices(String s, int n){
         if(s.equals("id_asc")){
+            if(n==0) return iNoticeRepository.findAllByOrderByNoticeMemberIdAsc();
             if(n==5) return iNoticeRepository.findTop5ByOrderByNoticeMemberIdAsc();
             return iNoticeRepository.findTop10ByOrderByNoticeMemberIdAsc();
         }else if(s.equals("id_desc")){
+            if(n==0)return iNoticeRepository.findAllByOrderByNoticeMemberIdDesc();
             if(n==5) return iNoticeRepository.findTop5ByOrderByNoticeMemberIdDesc();
             return iNoticeRepository.findTop10ByOrderByNoticeMemberIdDesc();
         }else if(s.equals("reg_date_asc")){
+            if(n==0) return iNoticeRepository.findAllByOrderByNoticeDateAsc();
             if(n==5) return iNoticeRepository.findTop5ByOrderByNoticeDateAsc();
             return iNoticeRepository.findTop10ByOrderByNoticeDateAsc();
         }else{
+            if(n==0) return iNoticeRepository.findAllByOrderByNoticeDateDesc();
             if(n==5) return iNoticeRepository.findTop5ByOrderByNoticeDateDesc();
             return iNoticeRepository.findTop10ByOrderByNoticeDateDesc();
         }
@@ -68,6 +72,7 @@ public class AdminService {
         }
 
         // 페이지네이션 적용
+        if(n==0) return notices;
         if (n == 5) {
             return notices.subList(0, Math.min(5, notices.size()));
         } else {

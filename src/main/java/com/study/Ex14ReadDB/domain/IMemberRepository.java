@@ -17,6 +17,10 @@ public interface IMemberRepository extends JpaRepository<Member, Integer> {
 
     List<Member> findAllByMemberIdAndMemberNameAndMemberEmail(String memberId,String memberName, String memberEmail);
 
+    List<Member> findAllByOrderByMemberIdAsc();
+    List<Member> findAllByOrderByMemberIdDesc();
+    List<Member> findAllByOrderByMemberJoinDateAsc();
+    List<Member> findAllByOrderByMemberJoinDateDesc();
     List<Member> findTop5ByOrderByMemberIdAsc();
     List<Member> findTop5ByOrderByMemberIdDesc();
     List<Member> findTop5ByOrderByMemberJoinDateAsc();

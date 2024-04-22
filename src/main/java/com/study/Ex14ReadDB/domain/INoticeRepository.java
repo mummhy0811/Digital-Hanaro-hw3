@@ -10,6 +10,10 @@ import java.util.List;
 
 @Repository
 public interface INoticeRepository extends JpaRepository<Notice, Integer> {
+    List<Notice> findAllByOrderByNoticeMemberIdAsc();
+    List<Notice> findAllByOrderByNoticeMemberIdDesc();
+    List<Notice> findAllByOrderByNoticeDateAsc();
+    List<Notice> findAllByOrderByNoticeDateDesc();
     List<Notice> findTop5ByOrderByNoticeMemberIdAsc();
     List<Notice> findTop5ByOrderByNoticeMemberIdDesc();
     List<Notice> findTop5ByOrderByNoticeDateAsc();
