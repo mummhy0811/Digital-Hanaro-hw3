@@ -85,7 +85,7 @@
         function makeList(list) {
             let tbody = document.getElementById("notice-tbody");
             tbody.innerHTML = '';
-
+            document.getElementById("total").innerText="목록 "+list.length+"건";
             list.forEach((notice, index) => {
                 let tr = document.createElement('tr');
                 tr.setAttribute('data-idx', notice.noticeIdx);
@@ -190,7 +190,7 @@
             </select>
         </div>
         <div class="adminDiv2" id="tableTitle">
-            <div>목록 10건</div>
+            <div id="total">목록 10건</div>
             <div>
                 한페이지 행수
                 <select class="size" name="page_select" id="page_select" onchange="search()">

@@ -65,7 +65,7 @@
 		function makeList(list) {
 			let tbody = document.getElementById("member-tbody");
 			tbody.innerHTML = '';
-
+			document.getElementById("total").innerText="회원목록 "+ list.length+"건";
 			list.forEach((member, index) => {
 				let tr = document.createElement('tr');
 				tr.setAttribute('data-idx', member.memberIdx);
@@ -156,7 +156,7 @@
 			</select>
 			</div>
 			<div class="adminDiv2" id="tableTitle">
-			<div>회원목록 1건</div>
+			<div id="total">회원목록 1건</div>
 			<div>한페이지 행수
 				<select class="size" name="page_select" id="page_select" onchange="search()">
 				<option value="5" selected>5개만 보기</option>
